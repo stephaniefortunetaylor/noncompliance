@@ -1,13 +1,29 @@
-import datetime
+import pandas as pd
+import statsmodels.api as sm
+# noinspection PyProtectedMember
+from statsmodels.discrete.discrete_model import PoissonResultsWrapper
 
 
-# TODO: define a poisson regression here
-def run() -> None:
+def fit(data: pd.DataFrame) -> PoissonResultsWrapper:
     """
-    The main function in run_poisson.py
-    :return: None
+    Run a Poisson regression using the provided DataFrame.
+    :return: Poisson result object
     """
-    current_datetime = datetime.datetime.now()
-    print("Starting: run_poisson.run()")
-    print(f"doing regression stuff at {current_datetime}")
-    print("Exiting: run_poisson.run()")
+    print('Starting: run_poisson.run()')
+
+    # Define a list of columns to use as exogenous variables
+    regressor_columns = ['occupation', 'occupation_husb', 'children']
+    exogenous_data = data[regressor_columns]
+
+    # Select the column to use for the endogenous variable
+    endogenous_data = data['religious']
+
+    # Modify this line to change how the *model* is defined
+    poisson_model = sm.Poisson(endogenous_data, exogenous_data)
+
+    # Modify this line to change how the model behaves
+    poisson_result = poisson_model.fit()
+
+    print('Exiting: run_poisson.run()')
+
+    return poisson_result
