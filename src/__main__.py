@@ -1,5 +1,5 @@
-from analysis import run_poisson
-from data import load_data
+from src.analysis import run_poisson
+from src.data import load_data
 
 
 def run_analysis() -> None:
@@ -9,7 +9,8 @@ def run_analysis() -> None:
     """
     print('Starting: __main__.run_analysis()')
 
-    data = load_data.load_data()
+    path = input('Enter path to CSV:')
+    data = load_data.load_data(path)
 
     poisson_result = run_poisson.fit(data)
 

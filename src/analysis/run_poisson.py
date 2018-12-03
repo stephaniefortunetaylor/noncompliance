@@ -12,11 +12,11 @@ def fit(data: pd.DataFrame) -> PoissonResultsWrapper:
     print('Starting: run_poisson.run()')
 
     # Define a list of columns to use as exogenous variables
-    regressor_columns = ['occupation', 'occupation_husb', 'children']
+    regressor_columns = ['XOCAH', 'XOCAWH']
     exogenous_data = data[regressor_columns]
 
     # Select the column to use for the endogenous variable
-    endogenous_data = data['religious']
+    endogenous_data = data['EIC']
 
     # Modify this line to change how the *model* is defined
     poisson_model = sm.Poisson(endogenous_data, exogenous_data)
